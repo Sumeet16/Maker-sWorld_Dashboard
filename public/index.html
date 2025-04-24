@@ -154,30 +154,28 @@ tr:hover {
                     <!-- Data will be populated by JavaScript -->
                 </tbody>
             </table>
+            <div id="pagination" style="margin-top: 1.5rem; display: flex; justify-content: center; gap: 0.5rem;"></div>
         </div>
     </div>
     <script>
-        // Function to format date in a readable format
-function formatDate(dateString) {
-    if (!dateString) return 'N/A';
-    return new Date(dateString).toLocaleString();
-}
+    const USERS_PER_PAGE = 5;
+    let currentPage = 1;
+    let usersData = [];
 
-// Function to update the dashboard
-async function updateDashboard() {
-    try {
-        const response = await fetch('/api/users');
-        const data = await response.json();
+    function formatDate(dateString) {
+        if (!dateString) return 'N/A';
+        return new Date(dateString).toLocaleString();
+    }
 
-        // Update stats cards
-        document.getElementById('totalUsers').textContent = data.stats.totalUsers;
-        document.getElementById('avgTime').textContent = data.stats.avgTimeToCreate;
+    function renderTablePage(page) {
+        const start = (page - 1) * USERS_PER_PAGE;
+        const end = start + USERS_PER_PAGE;
+        const paginatedUsers = usersData.slice(start, end);
 
-        // Update table
         const tableBody = document.getElementById('userTableBody');
-        tableBody.innerHTML = ''; // Clear existing rows
+        tableBody.innerHTML = '';
 
-        data.users.forEach(user => {
+        paginatedUsers.forEach(user => {
             const row = document.createElement('tr');
             row.innerHTML = `
                 <td>${user.email || 'N/A'}</td>
@@ -192,14 +190,51 @@ async function updateDashboard() {
             `;
             tableBody.appendChild(row);
         });
-    } catch (error) {
-        console.error('Error fetching data:', error);
-    }
-}
 
-// Update dashboard initially and every 30 seconds
-updateDashboard();
-setInterval(updateDashboard, 30000);
+        renderPaginationControls();
+    }
+
+    function renderPaginationControls() {
+        const totalPages = Math.ceil(usersData.length / USERS_PER_PAGE);
+        const pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const button = document.createElement('button');
+            button.textContent = i;
+            button.style.padding = '0.5rem 1rem';
+            button.style.border = '1px solid #ccc';
+            button.style.borderRadius = '5px';
+            button.style.backgroundColor = i === currentPage ? '#3182ce' : '#fff';
+            button.style.color = i === currentPage ? '#fff' : '#2d3748';
+            button.style.cursor = 'pointer';
+
+            button.addEventListener('click', () => {
+                currentPage = i;
+                renderTablePage(currentPage);
+            });
+
+            pagination.appendChild(button);
+        }
+    }
+
+    async function updateDashboard() {
+        try {
+            const response = await fetch('/api/users');
+            const data = await response.json();
+
+            document.getElementById('totalUsers').textContent = data.stats.totalUsers;
+            document.getElementById('avgTime').textContent = data.stats.avgTimeToCreate;
+
+            usersData = data.users;
+            renderTablePage(currentPage);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
+    updateDashboard();
+    setInterval(updateDashboard, 30000);
     </script>
 </body>
 

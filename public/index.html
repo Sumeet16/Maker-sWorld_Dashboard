@@ -5,8 +5,120 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MakerWorld Dashboard</title>
-    <link rel="stylesheet" href="styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #2d3748;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #1a202c;
+    text-align: center;
+}
+
+
+/* Stats Row Styling */
+
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.stat-card h3 {
+    color: #4a5568;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2b6cb0;
+}
+
+
+/* Table Styling */
+
+.table-container {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    overflow-x: auto;
+}
+
+.table-container h2 {
+    margin-bottom: 1rem;
+    color: #2d3748;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+
+th,
+td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+th {
+    background-color: #f7fafc;
+    font-weight: 600;
+    color: #4a5568;
+}
+
+tr:hover {
+    background-color: #f7fafc;
+}
+
+.status-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
+.status-active {
+    background-color: #c6f6d5;
+    color: #2f855a;
+}
+
+.status-inactive {
+    background-color: #fed7d7;
+    color: #c53030;
+}
+    </style>
 </head>
 
 <body>

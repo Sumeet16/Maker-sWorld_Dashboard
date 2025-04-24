@@ -24,7 +24,7 @@ app.use(cors({
 
 app.use(express.json());
 app.use(express.static('public'));
-dotenv.config({ path: "config.env" });
+dotenv.config({ path: ".env" });
 
 // Function to format time difference
 function formatTimeDifference(milliseconds) {

@@ -183,7 +183,11 @@ tr:hover {
                         ${user.is_LoggedIn ? 'Active' : 'Inactive'}
                     </span>
                 </td>
-                <td>${user.is_Download}</td>
+                <td>
+                    <span class="status-badge ${user.is_Download ? 'status-active' : 'status-inactive'}">
+                        ${user.is_Download ? 'Downloaded' : 'Pending'}
+                    </span>
+                </td>
                 <td>${user.timeSinceCreation}</td>
             `;
             tableBody.appendChild(row);

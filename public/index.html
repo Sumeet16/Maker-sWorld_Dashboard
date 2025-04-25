@@ -183,7 +183,7 @@ tr:hover {
                         ${user.is_LoggedIn ? 'Active' : 'Inactive'}
                     </span>
                 </td>
-                <td>${formatDate(user.is_Download)}</td>
+                <td>${user.is_Download}</td>
                 <td>${user.timeSinceCreation}</td>
             `;
             tableBody.appendChild(row);

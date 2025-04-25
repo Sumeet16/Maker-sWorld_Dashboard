@@ -145,8 +145,7 @@ tr:hover {
                     <tr>
                         <th>Email</th>
                         <th>Status</th>
-                        <th>Created At</th>
-                        <th>Last Login</th>
+                        <th>is_Download</th>
                         <th>Time Since Creation</th>
                     </tr>
                 </thead>
@@ -184,8 +183,7 @@ tr:hover {
                         ${user.is_LoggedIn ? 'Active' : 'Inactive'}
                     </span>
                 </td>
-                <td>${formatDate(user.created_at)}</td>
-                <td>${formatDate(user.last_logged_in)}</td>
+                <td>${formatDate(user.is_Download)}</td>
                 <td>${user.timeSinceCreation}</td>
             `;
             tableBody.appendChild(row);
